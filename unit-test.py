@@ -26,4 +26,5 @@ def test_give_wrong_answer():
     game.roll(1)
     assert game.get_question() == "Science Question 0"
     assert game.get_answer() == False
-#    assert game.points_earned_with_answer(False) == 0
+    assert game.points_earned_with_answer(True) == 0
+    assert game.wrong_answer() == False

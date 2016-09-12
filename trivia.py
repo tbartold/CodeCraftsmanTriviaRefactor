@@ -17,7 +17,7 @@ class Game:
         self.sports_answers = []
         self.rock_answers = []
 
-        self.current_player = 0
+        self.current_player = -1
         self.is_getting_out_of_penalty_box = False
 
         self.read_in_questions(filename)
@@ -67,6 +67,7 @@ class Game:
         return len(self.players)
 
     def roll(self, roll):
+        self._increment_player()
         print "%s is the current player" % self.players[self.current_player]
         print "They have rolled a %s" % roll
         if self.in_penalty_box[self.current_player]:
@@ -120,26 +121,30 @@ class Game:
         if self.places[self.current_player] == 10: return 'Sports'
         return 'Rock'
 
+    def points_earned_with_answer(self,answer):
+        if answer == self.get_answer: return 1
+        return 0
+
+    def answer(self,reply):
+        if reply: self.was_correctly_answered()
+        else: self.wrong_answer()
+
     def was_correctly_answered(self):
         if self.in_penalty_box[self.current_player] and not self.is_getting_out_of_penalty_box:
-            self._increment_player()
-            return True
+            return False
         print 'Answer was correct!!!!'
         self._increment_gold()
         self._print_gold()
-        winner = self._did_player_win()
-        self._increment_player()
-        return winner
+        return self._did_player_win()
 
     def wrong_answer(self):
         print 'Question was incorrectly answered'
         print self.players[self.current_player] + " was sent to the penalty box"
         self.in_penalty_box[self.current_player] = True
-        self._increment_player()
-        return True
+        return False
 
     def _did_player_win(self):
-        return not (self.purses[self.current_player] == 6)
+        return (self.purses[self.current_player] == 6)
 
     def _increment_player(self):
         self.current_player += 1

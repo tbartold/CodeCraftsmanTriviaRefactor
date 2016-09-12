@@ -17,8 +17,8 @@ while True:
     game.roll(randrange(5) + 1)
 
     if randrange(9) > 4:
-        not_a_winner = game.wrong_answer()
+        a_winner = game.answer(False)
     else:
-        not_a_winner = game.was_correctly_answered()
+        a_winner = game.answer(True)
 
-    if not not_a_winner: break
+    if a_winner: break
