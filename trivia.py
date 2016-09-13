@@ -43,6 +43,7 @@ class Game:
                 self.rock_questions.append(words[1])
                 self.rock_answers.append("True"==words[2])
 
+    #this is obsolete. but it's what we put in to the data files so that our golden record wouldn't have to change.
     #    for i in range(50):
     #        self.pop_questions.append("Pop Question %s" % i)
     #        self.science_questions.append("Science Question %s" % i)
@@ -125,6 +126,8 @@ class Game:
         if answer == self.get_answer: return 1
         return 0
 
+    # after the fact we added this and change our golden record test under the 
+    # assumption that the data file assumes all answers in our data set shoudl be 'true'  
     def answer(self,reply):
         if reply: self.was_correctly_answered()
         else: self.wrong_answer()
